@@ -20,18 +20,20 @@ The following tools are run where applicable to the image being processed:
 
 ## Examples
 <pre>
-.\Start-TriageParsing.ps1 -imagePath D:\[root] -toolPath C:\Utilities\Zimmerman -outpath \\SERVER\Cases\2018-06-01_1520_Laptop
+.\Start-TriageParsing.ps1 -imagePath D:\[root] -toolPath C:\Utilities\Zimmerman -outPath \\SERVER\Cases\2018-06-01_1520_Laptop
 </pre>
 Example using:
  * -imagePath to specify the path to the mounted image
  * -toolPath to specify the path to directory containing tools 
- * -outpath to specify location to save processed files
+ * -outPath to specify location to save processed files
 <pre>
 .\Start-TriageParsing.ps1 -imagePath "\\SIFTWORKSTATION\mnt\shadow_mount\VSS1" -outPath G:\Cases
 </pre>
 Example using:
-* -imagepath to specify mounted Volume Shadow Copy on SIFT Workstation
-* -toolpath parameter is not specified and will therefore use the default location
+* -imagePath to specify mounted Volume Shadow Copy on SIFT Workstation
+* -toolPath parameter is not specified and will therefore use the default location
+
+The default location of tools can be set by modifying the line below in Start-TriageParsing.ps1:
  <pre>
  [string]$toolPath = "C:\forensic program files\zimmerman", # Change to directory containing tools
 </pre>
