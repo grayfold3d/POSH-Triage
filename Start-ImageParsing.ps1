@@ -29,7 +29,7 @@
 param(
     [string]$imagePath,
     [string]$toolPath = "C:\forensic program files\zimmerman", # Change to directory containing tools
-    [string]$outpath
+    [string]$outPath
     )
 
 function log ($text){
@@ -46,10 +46,10 @@ function Start-JLEcmd
         ForEach ($dir in $jle) {
             $userdir = (($dir -split "\\users\\")[1] -split "\\appdata")[0]
             $options = @('-d','-f','-q','--csv')
-            $command = "$toolPath\jlecmd.exe $($options[0]) $dir $($options[2]) $($options[3]) $outpath\$userdir"
+            $command = "$toolPath\jlecmd.exe $($options[0]) $dir $($options[2]) $($options[3]) $outPath\$userdir"
             log $command
             try{
-                & $toolPath\jlecmd.exe $options[0] $dir $options[2] $options[3] $outpath\$userdir 2> $null
+                & $toolPath\jlecmd.exe $options[0] $dir $options[2] $options[3] $outPath\$userdir 2> $null
             }catch{
                 log "##ERROR - $Error[0]"
             }
@@ -70,10 +70,10 @@ function Start-LECmd
         ForEach ($dir in $recent) {
             $userdir = (($dir -split "\\users\\")[1] -split "\\appdata")[0]
             $options = @('-d','-f','-q','--csv')
-            $command = "$toolPath\lecmd.exe $($options[0]) $dir $($options[2])  $($options[3])  $outpath\$userdir"
+            $command = "$toolPath\lecmd.exe $($options[0]) $dir $($options[2])  $($options[3])  $outPath\$userdir"
             log $command
             try{
-                & $toolPath\lecmd.exe $options[0] $dir $options[2] $options[3] $outpath\$userdir 2> $null
+                & $toolPath\lecmd.exe $options[0] $dir $options[2] $options[3] $outPath\$userdir 2> $null
             }catch{
                 log "##ERROR - $Error[0]"
             }
@@ -91,10 +91,10 @@ function Start-PECmd
     if(Test-Path $toolPath\pecmd.exe){
         $prefetch = (Get-Item imagePath:\Windows\Prefetch).FullName
         $options = @('-d','-f','-q','--csv')
-        $command = "$toolPath\pecmd.exe $($options[0])  $prefetch $($options[2]) $($options[3])  $outpath"
+        $command = "$toolPath\pecmd.exe $($options[0])  $prefetch $($options[2]) $($options[3])  $outPath"
         log $command
         try{
-            & $toolPath\pecmd.exe $options[0] $prefetch $options[2] $options[3] $outpath 2> $null
+            & $toolPath\pecmd.exe $options[0] $prefetch $options[2] $options[3] $outPath 2> $null
         }catch{
             log "##ERROR - $Error[0]"
         }
@@ -113,10 +113,10 @@ function Start-SBECmd
         foreach ($dir in $registry){
             $userdir = split-path $dir -leaf
             $options = @('-d','-f','-q','--csv')
-            $command = "$toolPath\SBECmd.exe $($options[0])  $dir $($options[3])  $outpath\$userdir"
+            $command = "$toolPath\SBECmd.exe $($options[0])  $dir $($options[3])  $outPath\$userdir"
             log $command
             try{
-                & $toolPath\SBECmd.exe $options[0] $dir $options[3] $outpath\$userdir 2> $null
+                & $toolPath\SBECmd.exe $options[0] $dir $options[3] $outPath\$userdir 2> $null
             }catch{
                 log "##ERROR - $Error[0]"
             }
@@ -134,10 +134,10 @@ function Start-AppCompatParser
     if(Test-Path $toolPath\AppCompatCacheParser.exe){
         $appCompatCache = (Get-Item imagePath:\Windows\System32\Config\SYSTEM).FullName
         $options = @('-d','-f','-q','--csv')
-        $command = "$toolPath\AppCompatCacheParser.exe $($options[1]) $appCompatCache $($options[3]) $outpath"
+        $command = "$toolPath\AppCompatCacheParser.exe $($options[1]) $appCompatCache $($options[3]) $outPath"
         log $command
         try{
-            & $toolPath\AppCompatCacheParser.exe $options[1] $appCompatCache $options[3] $outpath 2> $null
+            & $toolPath\AppCompatCacheParser.exe $options[1] $appCompatCache $options[3] $outPath 2> $null
         }catch{
             log "##ERROR - $Error[0]"
         }
@@ -155,10 +155,10 @@ function Start-AmCacheParser
         if(Test-Path imagePath:\Windows\AppCompat\Programs\AmCache.hve){                                               
             $amCache = (Get-Item imagePath:\Windows\AppCompat\Programs\AmCache.hve).FullName
             $options = @('-d','-f','-q','--csv')
-            $command = "$toolPath\AmcacheParser.exe $($options[1])  $amCache $($options[3])  $outpath"
+            $command = "$toolPath\AmcacheParser.exe $($options[1])  $amCache $($options[3])  $outPath"
             log $command
             try{
-                & $toolPath\AmcacheParser.exe $options[1] $amCache $options[3] $outpath 2> $null
+                & $toolPath\AmcacheParser.exe $options[1] $amCache $options[3] $outPath 2> $null
             }catch{
                 log "##ERROR - $Error[0]"
             }
@@ -181,10 +181,10 @@ function Start-RecentFileCache
         if(Test-Path imagePath:\Windows\AppCompat\Programs\recentfilecache.bcf){
             $recentFileCache = (Get-Item imagePath:\Windows\AppCompat\Programs\recentfilecache.bcf).FullName
             $options = @('-d','-f','-q','--csv')
-            $command = "$toolPath\RecentFileCacheParser.exe $($options[1])  $recentFileCache $($options[2])  $($options[3])  $outpath"
+            $command = "$toolPath\RecentFileCacheParser.exe $($options[1])  $recentFileCache $($options[2])  $($options[3])  $outPath"
             log $command
             try{
-                & $toolPath\RecentFileCacheParser.exe $options[1] $recentFileCache $options[2] $options[3] $outpath 2> $null
+                & $toolPath\RecentFileCacheParser.exe $options[1] $recentFileCache $options[2] $options[3] $outPath 2> $null
             }catch{
                 log "##ERROR - $Error[0]"
             }
@@ -208,10 +208,10 @@ function Start-WxTCmd
             ForEach ($dir in $activitiesCache) {
                 $userdir = (($dir -split "\\users\\")[1] -split "\\appdata")[0]
                 $options = @('-d','-f','-q','--csv')
-                $command = "$toolPath\WxTCmd.exe $($options[1])  $dir $($options[3])  $outpath\$userdir"
+                $command = "$toolPath\WxTCmd.exe $($options[1])  $dir $($options[3])  $outPath\$userdir"
                 log $command
                 try{
-                    & $toolPath\WxTCmd.exe $options[1] $dir $options[3] $outpath\$userdir 2> $null
+                    & $toolPath\WxTCmd.exe $options[1] $dir $options[3] $outPath\$userdir 2> $null
                 }catch{
                     log "##ERROR - $Error[0]"
                 }
@@ -228,8 +228,8 @@ function Start-WxTCmd
 $imagepath = New-PSDrive -name imagepath -PSProvider FileSystem -Root $imagePath
 
 # Set log output and create directory/file
-$log = "$outpath\Start-Parse.log"
-New-Item -path $outpath -ItemType Directory | Out-Null
+$log = "$outPath\Start-Parse.log"
+New-Item -path $outPath -ItemType Directory | Out-Null
 New-Item -path $log -ItemType File | out-null
 
 Start-JLECmd
