@@ -14,6 +14,7 @@ The following tools are run where applicable to the image being processed:
 * WxTCmd.exe
 
 ## Examples
+***Script should be run as administrator***
 <pre>
 .\Start-TriageParsing.ps1 -imagePath D:\[root] -toolPath C:\Utilities\Zimmerman -outpath \\SERVER\Cases\2018-06-01_1520_Laptop
 </pre>
