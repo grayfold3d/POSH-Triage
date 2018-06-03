@@ -18,13 +18,15 @@
     Example using:
      -imagePath to specify the path to the mounted image
      -toolPath to specify the path to directory containing tools 
-     -outpath to specify location to save processed files
+     -outPath to specify location to save processed files
 
-   .\Start-TriageParsing.ps1 -imagePath D:\[root] -toolPath C:\Utilities\Zimmerman -outpath \\SERVER\Cases\2018-06-01_1520_Laptop1 
+   .\Start-TriageParsing.ps1 -imagePath D:\[root] -toolPath C:\Utilities\Zimmerman -outPath \\SERVER\Cases\2018-06-01_1520_Laptop1 
 .EXAMPLE
-   Example using default location of the -toolpath parameter. 
+   Example using:
+    -imagepath to specify mounted Volume Shadow Copy on SIFT Workstation
+    -toolpath parameter is not specified and will therefore use the default location
 
-   .\Start-TriageParsing.ps1 -imagePath D:\[root] -outpath G:\Cases\2018-06-01_1520_Laptop1\Processed
+   .\Start-TriageParsing.ps1 -imagePath "\\SIFTWORKSTATION\mnt\shadow_mount\VSS1" -outPath G:\Cases\2018-06-01_1520_Laptop1\Processed
 #>
 param(
     [string]$imagePath,
