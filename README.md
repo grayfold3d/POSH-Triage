@@ -41,7 +41,6 @@ The default location of tools can be set by modifying the line below in Start-Tr
 # To Do
 * Provide ability to combine exported files into timeline
 * Automatic parsing of additional artifacts using additional tools
-* Test functionality with PowerShell Core
 
 # Version History
  0.1 - Initial release    
