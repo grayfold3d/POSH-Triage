@@ -47,7 +47,7 @@ function Start-JLEcmd
         $jle = (Get-Item imagepath:\users\*\Appdata\Roaming\Microsoft\Windows\Recent).FullName 
         ForEach ($dir in $jle) {
             $userdir = (($dir -split "\\users\\")[1] -split "\\appdata")[0]
-            $command = "& $toolPath\jlecmd.exe $($options[0]) ""$dir"" $($options[2]) $($options[3]) ""$outPath\$userdir"""
+            $command = "& ""$toolPath\jlecmd.exe"" $($options[0]) ""$dir"" $($options[2]) $($options[3]) ""$outPath\$userdir"""
             log $command
             try{
                 iex $command
@@ -70,7 +70,7 @@ function Start-LECmd
         $recent = (Get-Item imagePath:\users\*\Appdata\Roaming\Microsoft\Windows\Recent\).FullName
         ForEach ($dir in $recent) {
             $userdir = (($dir -split "\\users\\")[1] -split "\\appdata")[0]
-            $command = "& $toolPath\lecmd.exe $($options[0]) ""$dir"" $($options[2])  $($options[3])  ""$outPath\$userdir"""
+            $command = "& ""$toolPath\lecmd.exe"" $($options[0]) ""$dir"" $($options[2])  $($options[3])  ""$outPath\$userdir"""
             log $command
             try{
                 iex $command
@@ -90,7 +90,7 @@ function Start-PECmd
 {
     if(Test-Path $toolPath\pecmd.exe){
         $prefetch = (Get-Item imagePath:\Windows\Prefetch).FullName
-        $command = "& $toolPath\pecmd.exe $($options[0])  ""$prefetch"" $($options[2]) $($options[3])  ""$outPath"""
+        $command = "& ""$toolPath\pecmd.exe"" $($options[0])  ""$prefetch"" $($options[2]) $($options[3])  ""$outPath"""
         log $command
         try{
             iex $command
@@ -111,7 +111,7 @@ function Start-SBECmd
         $registry = (Get-ChildItem imagepath:\users\*\* -Filter NTUSER.DAT).Directory
         foreach ($dir in $registry){
             $userdir = split-path $dir -leaf
-            $command = "& $toolPath\SBECmd.exe $($options[0]) ""$dir"" $($options[3]) ""$outPath\$userdir"""
+            $command = "& ""$toolPath\SBECmd.exe"" $($options[0]) ""$dir"" $($options[3]) ""$outPath\$userdir"""
             log $command
             try{
                 iex $command
@@ -131,7 +131,7 @@ function Start-AppCompatParser
 {
     if(Test-Path $toolPath\AppCompatCacheParser.exe){
         $appCompatCache = (Get-Item imagePath:\Windows\System32\Config\SYSTEM).FullName
-        $command = "& $toolPath\AppCompatCacheParser.exe $($options[1]) ""$appCompatCache"" $($options[3]) ""$outPath"""
+        $command = "& ""$toolPath\AppCompatCacheParser.exe"" $($options[1]) ""$appCompatCache"" $($options[3]) ""$outPath"""
         log $command
         try{
             iex $command
@@ -151,7 +151,7 @@ function Start-AmCacheParser
     if(Test-Path $toolPath\AmcacheParser.exe){
         if(Test-Path imagePath:\Windows\AppCompat\Programs\AmCache.hve){                                               
             $amCache = (Get-Item imagePath:\Windows\AppCompat\Programs\AmCache.hve).FullName
-            $command = "& $toolPath\AmcacheParser.exe $options[1] ""$amCache"" $options[3] ""$outPath""" 
+            $command = "& ""$toolPath\AmcacheParser.exe"" $($options[1]) ""$amCache"" $($options[3]) ""$outPath""" 
             log $command
             try{
                 iex $command 
@@ -176,7 +176,7 @@ function Start-RecentFileCache
     if(Test-Path $toolPath\RecentFileCacheParser.exe){
         if(Test-Path imagePath:\Windows\AppCompat\Programs\recentfilecache.bcf){
             $recentFileCache = (Get-Item imagePath:\Windows\AppCompat\Programs\recentfilecache.bcf).FullName
-            $command = "& $toolPath\RecentFileCacheParser.exe $($options[1]) ""$recentFileCache"" $($options[2])  $($options[3]) ""$outPath"""
+            $command = "& ""$toolPath\RecentFileCacheParser.exe"" $($options[1]) ""$recentFileCache"" $($options[2])  $($options[3]) ""$outPath"""
             log $command
             try{
                 iex $command
@@ -202,7 +202,7 @@ function Start-WxTCmd
             $activitiesCache = (Get-Item imagePath:\users\*\AppData\Local\ConnectedDevicesPlatform\*\ActivitiesCache.db).FullName 
             ForEach ($dir in $activitiesCache) {
                 $userdir = (($dir -split "\\users\\")[1] -split "\\appdata")[0]
-                $command = "& $toolPath\WxTCmd.exe $($options[1])  ""$dir"" $($options[3])  ""$outPath\$userdir"""
+                $command = "& ""$toolPath\WxTCmd.exe"" $($options[1])  ""$dir"" $($options[3])  ""$outPath\$userdir"""
                 log $command
                 try{
                     iex $command
@@ -218,8 +218,27 @@ function Start-WxTCmd
     }
 }
 
+#MFTECmd
+function Start-MFTECmd
+{
+    if(Test-Path $toolPath\MFTECmd.exe){
+        $MFT = (Get-Item 'imagePath:\$MFT').FullName
+        $command = "& ""$toolPath\MFTECmd.exe"" $($options[1]) '$MFT' $($options[3])  ""$outPath"""
+        log $command
+        try{
+            iex $command
+        }catch{
+            log "##ERROR - $Error[0]"
+        }
+    }
+    else
+    {
+        log "MFTECmd.exe not found. MFT will not be processed."
+    }
+}
+
 # Create PSDrive to fix issues caused by mounted images containing brackets in path
-$imagepath = New-PSDrive -name imagepath -PSProvider FileSystem -Root $imagePath
+New-PSDrive -name imagepath -PSProvider FileSystem -Root $imagePath
 
 # Set log output and create directory/file
 $log = "$outPath\Start-Parse.log"
@@ -237,3 +256,4 @@ Start-AppCompatParser
 Start-AmCacheParser
 Start-RecentFileCache
 Start-WxTCmd
+Start-MFTECmd

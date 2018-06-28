@@ -12,6 +12,7 @@ The following tools are run where applicable to the image being processed:
 * AmcacheParser.exe
 * RecentFileCacheParser.exe
 * WxTCmd.exe
+* MFTECmd.exe
 
 ## Requirements
 * All tools must be located in the same directory
@@ -43,4 +44,6 @@ The default location of tools can be set by modifying the line below in Start-Tr
 * Automatic parsing of additional artifacts using additional tools
 
 # Version History
- 0.1 - Initial release    
+* 0.2 - Added function to parse MFT using MTECmd.exe. Corrected issue with AMCacheParser. Refactored commands to support toolPath containing spaces
+* 0.1 - Initial release 
+   
