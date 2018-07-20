@@ -3,7 +3,7 @@
    Start-ImageParsing - automates the use of artifact extraction tools against
    mounted images
 .DESCRIPTION
-   Start-TriageParsing - automates the use of artifact extraction tools namely, those 
+   Start-ImageParsing - automates the use of artifact extraction tools namely, those 
    created by Eric Zimmerman (https://ericzimmerman.github.io/) 
      
    The script can be edited to set the location of the tools on your system or they can
@@ -11,7 +11,7 @@
    
    *** The following files are required for full functionality and must be in the same directory:
    jlecmd.exe, lecmd.exe, pecmd.exe, sbecmd.exe, AppCompatParser.exe, amcacheparser.exe, 
-   RecentFileCacheParser.exe, WxTCmd.exe. 
+   RecentFileCacheParser.exe, WxTCmd.exe, MFTeCmd. 
 
        
 .EXAMPLE
@@ -20,13 +20,14 @@
      -toolPath to specify the path to directory containing tools 
      -outPath to specify location to save processed files
 
-   .\Start-TriageParsing.ps1 -imagePath D:\[root] -toolPath C:\Utilities\Zimmerman -outPath \\SERVER\Cases\2018-06-01_1520_Laptop1 
+   .\Start-ImageParsing.ps1 -imagePath D:\[root] -toolPath C:\Utilities\Zimmerman -outPath \\SERVER\Cases\2018-06-01_1520_Laptop1 
 .EXAMPLE
    Example using:
     -imagepath to specify mounted Volume Shadow Copy on SIFT Workstation
     -toolpath parameter is not specified and will therefore use the default location
+    -outPath to specify location to save processed files
 
-   .\Start-TriageParsing.ps1 -imagePath "\\SIFTWORKSTATION\mnt\shadow_mount\VSS1" -outPath G:\Cases\2018-06-01_1520_Laptop1\Processed
+   .\Start-ImageParsing.ps1 -imagePath "\\SIFTWORKSTATION\mnt\shadow_mount\VSS1" -outPath G:\Cases\2018-06-01_1520_Laptop1\Processed
 #>
 param(
     [string]$imagePath,
@@ -149,8 +150,8 @@ function Start-AppCompatParser
 function Start-AmCacheParser
 {
     if(Test-Path $toolPath\AmcacheParser.exe){
-        if(Test-Path imagePath:\Windows\AppCompat\Programs\AmCache.hve){                                               
-            $amCache = (Get-Item imagePath:\Windows\AppCompat\Programs\AmCache.hve).FullName
+        if(Test-Path imagePath:\Windows\appcompat\Programs\Amcache.hve){                                               
+            $amCache = (Get-Item imagePath:\Windows\appcompat\Programs\Amcache.hve).FullName
             $command = "& ""$toolPath\AmcacheParser.exe"" $($options[1]) ""$amCache"" $($options[3]) ""$outPath""" 
             log $command
             try{
@@ -174,8 +175,8 @@ function Start-AmCacheParser
 function Start-RecentFileCache
 {
     if(Test-Path $toolPath\RecentFileCacheParser.exe){
-        if(Test-Path imagePath:\Windows\AppCompat\Programs\recentfilecache.bcf){
-            $recentFileCache = (Get-Item imagePath:\Windows\AppCompat\Programs\recentfilecache.bcf).FullName
+        if(Test-Path imagePath:\Windows\appcompat\Programs\recentfilecache.bcf){
+            $recentFileCache = (Get-Item imagePath:\Windows\appcompat\Programs\recentfilecache.bcf).FullName
             $command = "& ""$toolPath\RecentFileCacheParser.exe"" $($options[1]) ""$recentFileCache"" $($options[2])  $($options[3]) ""$outPath"""
             log $command
             try{
@@ -211,6 +212,10 @@ function Start-WxTCmd
                 }
             }
         }
+        else
+        {
+            log "ActivitiesCache.db not found or is not accessible"
+        }
     }
     else
     {
@@ -222,14 +227,18 @@ function Start-WxTCmd
 function Start-MFTECmd
 {
     if(Test-Path $toolPath\MFTECmd.exe){
-        $MFT = (Get-Item 'imagePath:\$MFT').FullName
-        $command = "& ""$toolPath\MFTECmd.exe"" $($options[1]) '$MFT' $($options[3])  ""$outPath"""
-        log $command
-        try{
-            iex $command
-        }catch{
-            log "##ERROR - $Error[0]"
-        }
+        try {
+            $MFT = (Get-Item 'imagePath:\$MFT' -ErrorAction Stop).FullName
+            $command = "& ""$toolPath\MFTECmd.exe"" $($options[1]) '$MFT' $($options[3])  ""$outPath"""
+            log $command
+                try{
+                    iex $command
+                }catch{
+                    log "##ERROR - $Error[0]"
+                } 
+            }catch{
+                log "##Error - MFT not found or accessable"
+            }
     }
     else
     {

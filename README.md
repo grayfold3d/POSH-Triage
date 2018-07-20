@@ -43,7 +43,12 @@ The default location of tools can be set by modifying the line below in Start-Tr
 * Provide ability to combine exported files into timeline
 * Automatic parsing of additional artifacts using additional tools
 
+# Known Issues
+* SBECmd fails to process NTUSER.DAT files when hive is dirty and disk is mounted using FTK Imager. This occurs due to a capitalization difference between hive and transaction log names.
+* $MFT is file is not accessible and able to be parsed when image is mounted using Arsenal Image Mounter.
+
 # Version History
+* 0.3 - Fixed AmcacheParser failure when hive was dirty and disk was mounted using FTK Imager
 * 0.2 - Added function to parse MFT using MTECmd.exe. Corrected issue with AMCacheParser. Refactored commands to support toolPath containing spaces
 * 0.1 - Initial release 
    
