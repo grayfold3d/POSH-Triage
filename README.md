@@ -2,7 +2,7 @@
 Tools for parsing Forensic images
 
 # Start-ImageParsing.ps1
-PowerShell script that automates the use of Eric Zimmerman's cmd line tools (https://ericzimmerman.github.io/) against a mounted forensic image.
+PowerShell script that automates the use of Eric Zimmerman's cmd line tools (https://ericzimmerman.github.io/) against a mounted forensic image.  A Registry Explorer project file is also created containing all user/system hives stored on the image.
 The following tools are run where applicable to the image being processed:
 * JLECmd.exe 
 * LEcmd.exe
@@ -13,6 +13,7 @@ The following tools are run where applicable to the image being processed:
 * RecentFileCacheParser.exe
 * WxTCmd.exe
 * MFTECmd.exe
+* Registry Explorer project file creation
 
 ## Requirements
 * All tools must be located in the same directory
@@ -36,7 +37,7 @@ Example using:
 * -toolPath parameter is not specified and will therefore use the default location
 * -outPath to specify location to save processed files
 
-The default location of tools can be set by modifying the line below in Start-TriageParsing.ps1:
+The default location of tools can be set by modifying the line below in Start-ImageParsing.ps1:
  <pre>
  [string]$toolPath = "C:\forensic program files\zimmerman", # Change to directory containing tools
 </pre>
@@ -50,6 +51,7 @@ The default location of tools can be set by modifying the line below in Start-Tr
 * $MFT is file is not accessible and able to be parsed when image is mounted using Arsenal Image Mounter.
 
 # Version History
+* 0.4 - Added function to create Registry Explorer project file containing SAM, SECURITY, SOFTWARE, SYSTEM hives and all NTUSER.DAT, USRClass.DAT hives on the image
 * 0.3 - Fixed AmcacheParser failure when hive was dirty and disk was mounted using FTK Imager
 * 0.2 - Added function to parse MFT using MTECmd.exe. Corrected issue with AMCacheParser. Refactored commands to support toolPath containing spaces
 * 0.1 - Initial release 

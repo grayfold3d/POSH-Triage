@@ -236,15 +236,34 @@ function Start-MFTECmd
                 }catch{
                     log "##ERROR - $Error[0]"
                 } 
-            }catch{
-                log "##Error - MFT not found or accessable"
-            }
+        }catch{
+            log "##Error - MFT not found or accessable"
+        }
     }
     else
     {
         log "MFTECmd.exe not found. MFT will not be processed."
     }
 }
+
+#Registry Explorer Project File
+function New-RegExpProj
+{ 
+   try {
+        $reproj = "$outPath\regexplorer.re_proj"
+        $systemHives = @('SAM','SYSTEM','SOFTWARE','SECURITY')
+        $hives = @()
+        $hives += (Get-ChildItem imagepath:\Windows\System32\Config\* -include $systemhives -ErrorAction Stop).FullName
+        $hives += (Get-ChildItem imagepath:\users\*\* -Filter NTUSER.DAT -ErrorAction Stop).FullName
+        $hives += (Get-ChildItem imagepath:\users\*\AppData\Local\Microsoft\Windows\* -Filter UsrClass.dat -ErrorAction Stop).FullName
+        $hives = $hives.Replace("\","\\")
+        $reprojBody = $hives -join ","
+        "[$($reprojBody)]" | Out-File $reproj
+    }catch{ 
+        log "##Error - $Error[0]"
+    }
+}
+
 
 # Create PSDrive to fix issues caused by mounted images containing brackets in path
 New-PSDrive -name imagepath -PSProvider FileSystem -Root $imagePath
@@ -266,3 +285,4 @@ Start-AmCacheParser
 Start-RecentFileCache
 Start-WxTCmd
 Start-MFTECmd
+New-RegExpProj
