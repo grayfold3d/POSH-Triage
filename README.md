@@ -83,12 +83,16 @@ Example using:
 * Added logic to detect image mounting source and provide alert of limitations of mount type
 * Modified logging. Now includes Start-ImageParsing_Commands.log which includes command history and Start-ImageParsing_Detailed.log which includes all output streams
 * Revisions to some commands to fix bugs and better support multiple image mounting methods
+
 0.4
 * Added function to create Registry Explorer project file containing SAM, SECURITY, SOFTWARE, SYSTEM hives and all NTUSER.DAT, USRClass.DAT hives on the image
+
 0.3 
 * Fixed AmcacheParser failure when hive was dirty and disk was mounted using FTK Imager
+
 0.2 
 * Added function to parse MFT using MTECmd.exe. Corrected issue with AMCacheParser. Refactored commands to support toolPath containing spaces
+
 0.1 
 * Initial release 
    
