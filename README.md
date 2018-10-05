@@ -70,11 +70,13 @@ Example using:
 * Provide ability to combine exported files into timeline
 * Add functions for additional tools
 * Combine and dedupe VSC output files 
+* Alllow VSC to output to detailed logs
 
 # Known Issues and limtitations
 * Arsenal Image Mounter - Unable to parse $MFT. Hindsight displays locked file message on some Volume Shadow Copies.
 * FTK Imager - Unable to mount and parse Volume Shadow Copies. SBECmd.exe fails to process NTUSER.DAT files when hive is dirty. Hold SHIFT while script is executing to allow parsing of dirty hive 
 * SIFT Workstation - Unable to mount/parse Volume Shadow copies and Shellbags
+
 
 # Version History
 0.5 
