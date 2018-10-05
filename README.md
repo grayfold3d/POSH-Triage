@@ -17,8 +17,10 @@ Eric Zimmerman Tools (https://ericzimmerman.github.io/)
 * MFTECmd.exe
 * Registry Explorer project file creation
 * VSCMount.exe
+
 Obsidian Forensics - Hindsight (https://github.com/obsidianforensics/hindsight)
-* Hindsight.exe 
+* Hindsight.exe
+ 
 NirSoft BrowsingHistoryView (https://www.nirsoft.net/utils/browsing_history_view.html)
 * BrowsingHistoryView.exe
 
