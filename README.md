@@ -70,7 +70,7 @@ Example using:
 * Provide ability to combine exported files into timeline
 * Add functions for additional tools
 * Combine and dedupe VSC output files 
-* Alllow VSC to output to detailed logs
+
 
 # Known Issues and limtitations
 * Arsenal Image Mounter - Unable to parse $MFT. Hindsight displays locked file message on some Volume Shadow Copies.
