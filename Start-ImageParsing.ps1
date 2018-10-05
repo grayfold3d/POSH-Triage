@@ -380,37 +380,37 @@ function Start-VSCParsing
         Write-Host "Parsing Volume Shadow Copies" -ForegroundColor Green
 
         Write-Host "Starting JLECmd.exe" -ForegroundColor Green
-        Start-JLECmd *>&1 | tee -filePath $detailedLog -Append
+        Start-JLECmd 
 
         Write-Host "Starting LECmd.exe" -ForegroundColor Green
-        Start-LECmd *>&1 | tee -filePath $detailedLog -Append
+        Start-LECmd 
 
         Write-Host "Starting PECmd.exe" -ForegroundColor Green
-        Start-PECmd *>&1 | tee -filePath $detailedLog -Append
+        Start-PECmd 
 
         Write-Host "Starting AppCompatParser.exe" -ForegroundColor Green
-        Start-AppCompatParser *>&1 | tee -filePath $detailedLog -Append
+        Start-AppCompatParser 
 
         Write-Host "Starting AmCacheParser.exe" -ForegroundColor Green
-        Start-AmCacheParser *>&1 | tee -filePath $detailedLog -Append
+        Start-AmCacheParser 
 
         Write-Host "Starting SBECmd.exe" -ForegroundColor Green
-        Start-SBECmd *>&1 | tee -filePath $detailedLog -Append
+        Start-SBECmd 
 
         Write-Host "Starting RecentFileCache.exe" -ForegroundColor Green
-        Start-RecentFileCache *>&1 | tee -filePath $detailedLog -Append
+        Start-RecentFileCache 
 
         Write-Host "Starting WxTCmd.exe" -ForegroundColor Green
-        Start-WxTCmd *>&1 | tee -filePath $detailedLog -Append
+        Start-WxTCmd 
 
         Write-Host "Starting Registry Explorer Project file creation" -ForegroundColor Green
-        New-RegExpProj *>&1 | tee -filePath $detailedLog -Append
+        New-RegExpProj 
 
         Write-Host "Starting BrowsingHistoryView.exe" -ForegroundColor Green
-        Start-BrowsingHistoryView *>&1 | tee -filePath $detailedLog -Append
+        Start-BrowsingHistoryView 
 
         Write-Host "Starting Hindsight.exe" -ForegroundColor Green
-        Start-Hindsight *>&1 | tee -filePath $detailedLog -Append
+        Start-Hindsight 
         
     }
 }
