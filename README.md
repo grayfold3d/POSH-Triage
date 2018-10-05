@@ -5,6 +5,7 @@ Tools for parsing Forensic images
 PowerShell script that automates the use of artifact parsing tool against mounted images and volume shadow copies.
     
 The following tools are run where applicable to the image being processed:
+
 Eric Zimmerman Tools (https://ericzimmerman.github.io/)
 * JLECmd.exe 
 * LEcmd.exe
