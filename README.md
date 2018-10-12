@@ -1,7 +1,28 @@
 # POSH-Triage
-Tools for parsing Forensic images
+Tools for DFIR
+* Get-ZimmermanTools.ps1 - automates download and extraction of Eric Zimmerman's tools
+* Start-ImageParsing.ps1 - automates the use of artifact parsing tool against mounted images and volume shadow copies
 
-# Start-ImageParsing.ps1
+## Get-ZimmermanTools.ps1
+PowerShell script that automates the download and extraction of Eric Zimmerman's tools 
+
+### Requirements
+* Windows PowerShell 5 or greater
+
+### Examples
+
+* The easiest method is to right click and select 'Run with PowerShell'. Tools will be saved to default location: C:\Forensic Program Files\Zimmerman
+
+* Example using -outDir parameter to specify path to save tools
+<pre>
+.\Get-ZimmermanTools.ps1 -outDir C:\Utilities\Zimmerman
+</pre>
+
+### Version History
+0.1
+* Initial release
+
+## Start-ImageParsing.ps1
 PowerShell script that automates the use of artifact parsing tool against mounted images and volume shadow copies.
     
 The following tools are run where applicable to the image being processed:
@@ -25,7 +46,7 @@ Obsidian Forensics - Hindsight (https://github.com/obsidianforensics/hindsight)
 NirSoft BrowsingHistoryView (https://www.nirsoft.net/utils/browsing_history_view.html)
 * BrowsingHistoryView.exe
 
-## Requirements
+### Requirements
 * Eric Zimmerman tools should all be located in the same directory
 * Script should be run from an administrator prompt
 * Windows 10/PowerShell 5 or greater
@@ -37,7 +58,7 @@ The default location of tools can be set by modifying the lines below in Start-I
  [string]$nirsoftPath = "C:\forensic program files\Nirsoft", # Change to directory containing Nirsoft tools
 </pre>
 
-## Examples
+### Examples
 Note that that intent of this example is to show that the path to the various tools can be specified using parameters.  The recommendation is to update the script so these parameters aren't needed.
 <pre>
 .\Start-ImageParsing.ps1 -imagePath D:\[root] -toolPath C:\Utilities\Zimmerman -hindsightPath c:\Utilities\Hindsight\Hindsight.exe -nirsoftPath c:\utilities\Nirsoft -outPath \\SERVER\Cases\2018-06-01_1520_Laptop1 
@@ -66,19 +87,19 @@ Example using:
 * -outPath to specify location to save processed files
 
 
-# To Do
+### To Do
 * Provide ability to combine exported files into timeline
 * Add functions for additional tools
 * Combine and dedupe VSC output files 
 
 
-# Known Issues and limtitations
+### Known Issues and Limtitations
 * Arsenal Image Mounter - Unable to parse $MFT. Hindsight displays locked file message on some Volume Shadow Copies.
 * FTK Imager - Unable to mount and parse Volume Shadow Copies. SBECmd.exe fails to process NTUSER.DAT files when hive is dirty. Hold SHIFT while script is executing to allow parsing of dirty hive 
 * SIFT Workstation - Unable to mount/parse Volume Shadow copies and Shellbags
 
 
-# Version History
+### Version History
 0.5 
 * Added functions to mount and parse Volume Shadow Copies
 * Added functions for Hindsight.exe and BrowsingHistoryView.exe
@@ -97,4 +118,3 @@ Example using:
 
 0.1 
 * Initial release 
-   
