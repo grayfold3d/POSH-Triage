@@ -30,6 +30,7 @@ function Get-ZimmermanTools
                    'PECmd.zip',
                    'RecentFileCacheParser.zip',
                    'RegistryExplorer_RECmd.zip',
+                   'RBCmd.zip',
                    'SDBExplorer.zip',
                    'ShellBagsExplorer.zip',
                    'TimelineExplorer.zip',
