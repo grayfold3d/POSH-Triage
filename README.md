@@ -19,8 +19,12 @@ PowerShell script that automates the download and extraction of Eric Zimmerman's
 </pre>
 
 ### Version History
+0.3 
+* Updated base URL as file hosting provider had changed
+
 0.2 
 * Added RBCmd.exe 
+
 0.1
 * Initial release
 
