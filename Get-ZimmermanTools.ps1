@@ -18,7 +18,7 @@ param(
 
 function Get-ZimmermanTools
 {
-    $baseURI = 'https://f001.backblazeb2.com/file/EricZimmermanTools/'
+    $baseURI = 'https://f001.backblazeb2.com/file/EricZimmermanTools'
     $filenames = @('AmcacheParser.zip',
                    'AppCompatCacheParser.zip',
                    'bstrings.zip',
